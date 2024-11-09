@@ -1,16 +1,45 @@
+// Function to handle dynamic block layout (alternating directions)
+function handleBlockLayout() {
+    const container = document.getElementById("blockchain-container");
+    const blocks = container.children; // Get all the block elements
+
+    let rowCount = 0; // Keeps track of the row
+    let blockCountInRow = 0; // Keeps track of blocks in the current row
+    let blocksInRow = 6; // Number of blocks per row
+
+    // Loop through all blocks
+    Array.from(blocks).forEach((block, index) => {
+        if (blockCountInRow === blocksInRow) {
+            // Start a new row after 6 blocks
+            rowCount++;
+            blockCountInRow = 0;
+        }
+
+        // Alternate layout for rows
+        if (rowCount % 2 === 0) {
+            // Left to right
+            block.style.marginTop = (rowCount * 160) + 'px'; // Add extra space between rows
+            block.style.marginLeft = (blockCountInRow * 140) + 'px'; // Adjust horizontal position
+        } else {
+            // Right to left
+            block.style.marginTop = (rowCount * 160) + 'px'; // Add extra space between rows
+            block.style.marginLeft = ((blocksInRow - blockCountInRow - 1) * 140) + 'px'; // Reverse horizontal position
+        }
+
+        blockCountInRow++; // Move to the next position in the row
+    });
+}
+
 // Function to show block details when clicked
 function showBlockDetails(blockIndex) {
-    // Get all the blocks and remove the 'active' class from all blocks
     var blocks = document.querySelectorAll('.block');
     blocks.forEach(function(block) {
         block.classList.remove('active');
     });
 
-    // Add the 'active' class to the clicked block
     var selectedBlock = document.getElementById('block-' + blockIndex);
     selectedBlock.classList.add('active');
 
-    // Fetch the block details dynamically from the page (or use actual data)
     var blockElement = selectedBlock;
     var blockData = `
         <p><strong>Block #${blockIndex}</strong></p>
@@ -20,26 +49,25 @@ function showBlockDetails(blockIndex) {
         <p><strong>Timestamp:</strong> ${blockElement.querySelector('.block-timestamp').innerText}</p>
     `;
 
-    // Inject block details into the details container
     document.getElementById('block-detail-content').innerHTML = blockData;
-
-    // Display the block details section
     document.getElementById('block-details').style.display = 'block';
 }
 
-// Function to close the block details view and unhighlight the block
+// Function to close block details view
 function closeBlockDetails() {
-    // Hide the block details section
     document.getElementById('block-details').style.display = 'none';
-
-    // Remove the 'active' class from all blocks
     var blocks = document.querySelectorAll('.block');
     blocks.forEach(function(block) {
         block.classList.remove('active');
     });
 }
 
+// Function to go back to the home page (Dashboard)
 function goToDashboard() {
-    // Redirect to the history page
-    window.location.href = '/';  // Adjust the URL to match your route
+    window.location.href = '/';
 }
+
+// Run layout handler after the page has loaded
+window.onload = function() {
+    handleBlockLayout();  // Call function to arrange the blocks in the layout
+};

@@ -1,3 +1,4 @@
+/* Basic styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #000000;
@@ -7,22 +8,6 @@ body {
 h1 {
     text-align: center;
     color: lightblue;
-}
-#blockchain {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.blockchain-box {
-    background-color: #fff;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 30px;
-    width: 80%;
-    overflow-y: scroll;
-    max-height: 400px;
 }
 form {
     margin-top: 40px;
@@ -46,7 +31,64 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #218838;
 }
-.history{
+.success-message {
+    color: rgb(118, 204, 118);
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Blockchain container and block styling */
+.blockchain-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 40px;
+    max-width: 90%;
+}
+
+.block {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+/* Alternating block placements */
+.horizontal {
+    order: auto;
+}
+.vertical {
+    width: 200px;
+    margin-left: 0;
+    flex-direction: column;
+}
+
+/* Connectors for "snake" layout */
+.horizontal-connector {
+    width: 50px;
+    height: 2px;
+    background-color: #ccc;
+    position: absolute;
+    right: -50px;
+    top: 50%;
+}
+
+.vertical-connector {
+    width: 2px;
+    height: 50px;
+    background-color: #ccc;
+    position: absolute;
+    left: 50%;
+    bottom: -50px;
+}
+
+/* History button styling */
+.history {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -57,8 +99,8 @@ input[type="submit"]:hover {
     border-radius: 5px;
     cursor: pointer;
     font-weight: 700;
-  }
-  
-.history:hover{
+}
+
+.history:hover {
     background-color: #00ADB5;
-  }
+}
