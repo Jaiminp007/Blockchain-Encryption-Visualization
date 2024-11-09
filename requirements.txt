@@ -67,4 +67,4 @@ tzdata==2024.2
 urllib3==2.2.3
 Werkzeug==3.0.5
 yarl==1.16.0
-gunicorn 
+gunicorn
