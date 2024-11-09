@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="static/css/history.css">
+</head>
+<body>
+    <h1>Blockchain Transaction History</h1>
+
+    <!-- Display each block as a separate clickable cube in a chain -->
+    <div id="blockchain">
+        {% for block in blockchain %}
+            <div class="block" id="block-{{ block.index }}" onclick="showBlockDetails({{ block.index }})">
+                <div class="cube">
+                    <p class="block-number">{{ block.index }}</p>
+                </div>
+                <!-- Hidden data elements for dynamic fetching -->
+                <span class="block-hash" style="display: none;">{{ block.hash }}</span>
+                <span class="block-previous-hash" style="display: none;">{{ block.previous_hash }}</span>
+                <span class="block-data" style="display: none;">{{ block.data }}</span>
+                <span class="block-timestamp" style="display: none;">{{ block.timestamp | datetimeformat }}</span>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+    <!-- Display block details when clicked -->
+    <div id="block-details" class="block-details" style="display: none;">
+        <h2>Block Details</h2>
+        <div id="block-detail-content">
+            <!-- Details will be injected here -->
+        </div>
+        <button class="close" onclick="closeBlockDetails()">Close</button>
+    </div>
+
+    <!-- Add a link to go back to the home page -->
+    <button class="dashboard" onclick=goToDashboard()>Go Home</button>
+
+    <!-- Link to external JavaScript file -->
+    <script src="static/js/history.js"></script>
+</body>
+</html>

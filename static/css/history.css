@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: lightblue;
+}
+
+#blockchain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    position: relative;  /* Ensures the line is relative to the blocks */
+}
+
+.block {
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.block:hover {
+    transform: scale(1.1);
+}
+
+.cube {
+    width: 100px;
+    height: 100px;
+    background-color: #4E5B6E;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    border: 2px solid #00ADB5;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.block.active .cube {
+    background-color: #00ADB5;
+    border-color: white;
+    transform: scale(1.2);
+}
+
+.block-number {
+    font-weight: bold;
+}
+
+/* Block Details */
+.block-details {
+    background-color: #393E46;
+    color: #EEEEEE;
+    border: 2px solid #00ADB5;
+    border-radius: 8px;
+    padding: 20px;
+    width: 60%;
+    margin: 20px auto;
+    text-align: center;
+    position: relative;
+}
+
+/* Close button positioning */
+.close{
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.close:hover {
+    background-color: #218838;
+}
+
+.dashboard{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #393E46;
+    color: #EEEEEE;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  
+.dashboard:hover{
+    background-color: #00ADB5;
+  }
+
+/* Create the connecting line between blocks */
+.block::after {
+    content: '';
+    position: absolute;
+    right: -30px; /* Position the line to the right of the block */
+    top: 50%;
+    width: 30px;
+    height: 2px;
+    background-color: #00ADB5;
+    transform: translateY(-50%);
+}
+
+.block:last-child::after {
+    content: none; /* Remove the line for the last block */
+}

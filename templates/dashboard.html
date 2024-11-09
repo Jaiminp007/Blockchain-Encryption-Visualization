@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Visualization</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="static/css/dashboard.css">
+</head>
+<body>
+    <h1>Blockchain Visualization</h1>
+
+    <!-- Form to add a new block -->
+    <form action="/add_block" method="POST">
+        <input type="text" name="data" placeholder="Enter data for the new block" required />
+        <input type="submit" value="Add Block" />
+    </form>
+
+    <!-- Link to view the transaction history -->
+    <button class="history" onclick=goToHistory()>Transaction History</button>
+
+    <!-- Link to external JavaScript file -->
+    <script src="static/js/dashboard.js"></script>
+</body>
+</html>
