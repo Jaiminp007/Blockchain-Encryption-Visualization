@@ -1,11 +1,10 @@
 from datetime import datetime
-from flask import Flask, render_template, jsonify, request, redirect, url_for, flash
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 import hashlib
 import time
 
 # Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'jaimin007' 
 
 @app.template_filter('datetimeformat')
 def datetimeformat(value):
@@ -48,8 +47,7 @@ def get_chain():
 # Main route to render the blockchain visualization page
 @app.route('/')
 def index():
-    message = request.args.get('message')
-    return render_template('dashboard.html', blockchain=blockchain, message=message)
+    return render_template('dashboard.html', blockchain=blockchain)
 
 @app.route('/history')
 def history():
@@ -58,12 +56,19 @@ def history():
 # Route to add a new block
 @app.route('/add_block', methods=['POST'])
 def add_block_route():
-    data = request.form['data']
-    add_block(data)
-    flash(f"Data '{data}' was added successfully")
-    return redirect(url_for('index'))
-
-  # Redirect back to the homepage after adding a block
+    try:
+        data = request.form['data']
+        add_block(data)
+        return jsonify({
+            "success": True,
+            "message": "Block added successfully",
+            "block": blockchain[-1]
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
 
 if __name__ == "__main__":
     app.run(debug=True)

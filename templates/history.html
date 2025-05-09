@@ -3,35 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction History</title>
+    <title>Transaction History - Blockchain Encryption Visualization</title>
     <link rel="stylesheet" href="static/css/history.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Blockchain Transaction History</h1>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-history"></i> Transaction History</h1>
+            <p class="subtitle">View and explore the blockchain</p>
+        </header>
 
-    <!-- Container for the blockchain blocks -->
-    <div id="blockchain-container">
-        {% for block in blockchain %}
-            <div class="block" id="block-{{ block.index }}" onclick="showBlockDetails({{ block.index }})">
-                <div class="cube">
-                    <p class="block-number">{{ block.index }}</p>
-                </div>
-                <!-- Hidden data elements for dynamic fetching -->
-                <span class="block-hash" style="display: none;">{{ block.hash }}</span>
-                <span class="block-previous-hash" style="display: none;">{{ block.previous_hash }}</span>
-                <span class="block-data" style="display: none;">{{ block.data }}</span>
-                <span class="block-timestamp" style="display: none;">{{ block.timestamp | datetimeformat }}</span>
+        <!-- Display block details when clicked -->
+        <div id="block-details" class="block-details" style="display: none;">
+            <h2>Block Details</h2>
+            <div id="block-detail-content">
+                <!-- Details will be injected here -->
             </div>
-        {% endfor %}
-    </div>
+            <button class="close" onclick="closeBlockDetails()">✕</button>
+        </div>
 
-    <div id="block-details" class="block-details" style="display: none;">
-        <h2>Block Details</h2>
-        <div id="block-detail-content"></div>
-        <button class="close" onclick="closeBlockDetails()">Close</button>
-    </div>
+        <!-- Add a link to go back to the home page -->
+        <button class="dashboard" onclick="goToDashboard()">
+            <i class="fas fa-home"></i> Go Home
+        </button>
 
-    <button class="dashboard" onclick="goToDashboard()">Go Home</button>
+        <div class="blockchain-container">
+            <h2>Blockchain Visualization</h2>
+            <div id="blockchain">
+                {% for block in blockchain %}
+                    <div class="block" 
+                         id="block-{{ block.index }}" 
+                         onclick="showBlockDetails({{ block.index }})">
+                        <span class="block-hash" style="display: none;">{{ block.hash }}</span>
+                        <span class="block-previous-hash" style="display: none;">{{ block.previous_hash }}</span>
+                        <span class="block-data" style="display: none;">{{ block.data }}</span>
+                        <span class="block-timestamp" style="display: none;">{{ block.timestamp | datetimeformat }}</span>
+                        <div class="cube">
+                            <p class="block-number">{{ block.index }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <script src="static/js/history.js"></script>
 </body>

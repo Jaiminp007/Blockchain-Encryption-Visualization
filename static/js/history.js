@@ -1,73 +1,59 @@
-// Function to handle dynamic block layout (alternating directions)
-function handleBlockLayout() {
-    const container = document.getElementById("blockchain-container");
-    const blocks = container.children; // Get all the block elements
-
-    let rowCount = 0; // Keeps track of the row
-    let blockCountInRow = 0; // Keeps track of blocks in the current row
-    let blocksInRow = 6; // Number of blocks per row
-
-    // Loop through all blocks
-    Array.from(blocks).forEach((block, index) => {
-        if (blockCountInRow === blocksInRow) {
-            // Start a new row after 6 blocks
-            rowCount++;
-            blockCountInRow = 0;
-        }
-
-        // Alternate layout for rows
-        if (rowCount % 2 === 0) {
-            // Left to right
-            block.style.marginTop = (rowCount * 160) + 'px'; // Add extra space between rows
-            block.style.marginLeft = (blockCountInRow * 140) + 'px'; // Adjust horizontal position
-        } else {
-            // Right to left
-            block.style.marginTop = (rowCount * 160) + 'px'; // Add extra space between rows
-            block.style.marginLeft = ((blocksInRow - blockCountInRow - 1) * 140) + 'px'; // Reverse horizontal position
-        }
-
-        blockCountInRow++; // Move to the next position in the row
-    });
-}
-
-// Function to show block details when clicked
+/**
+ * Shows the details of a clicked block
+ * @param {number} blockIndex - The index of the clicked block
+ */
 function showBlockDetails(blockIndex) {
-    var blocks = document.querySelectorAll('.block');
-    blocks.forEach(function(block) {
-        block.classList.remove('active');
-    });
-
-    var selectedBlock = document.getElementById('block-' + blockIndex);
+    const selectedBlock = document.getElementById('block-' + blockIndex);
+    const blockDetails = document.getElementById('block-details');
+    
+    // Add active class to the selected block
     selectedBlock.classList.add('active');
 
-    var blockElement = selectedBlock;
-    var blockData = `
+    const blockData = `
         <p><strong>Block #${blockIndex}</strong></p>
-        <p><strong>Hash:</strong> ${blockElement.querySelector('.block-hash').innerText}</p>
-        <p><strong>Previous Hash:</strong> ${blockElement.querySelector('.block-previous-hash').innerText}</p>
-        <p><strong>Data:</strong> ${blockElement.querySelector('.block-data').innerText}</p>
-        <p><strong>Timestamp:</strong> ${blockElement.querySelector('.block-timestamp').innerText}</p>
+        <p><strong>Hash:</strong><br>${selectedBlock.querySelector('.block-hash').innerText}</p>
+        <p><strong>Previous Hash:</strong><br>${selectedBlock.querySelector('.block-previous-hash').innerText}</p>
+        <p><strong>Data:</strong><br>${selectedBlock.querySelector('.block-data').innerText}</p>
+        <p><strong>Timestamp:</strong><br>${selectedBlock.querySelector('.block-timestamp').innerText}</p>
     `;
 
     document.getElementById('block-detail-content').innerHTML = blockData;
-    document.getElementById('block-details').style.display = 'block';
+    blockDetails.style.display = 'block';
 }
 
-// Function to close block details view
+/**
+ * Closes the block details view and removes active state from blocks
+ */
 function closeBlockDetails() {
     document.getElementById('block-details').style.display = 'none';
-    var blocks = document.querySelectorAll('.block');
-    blocks.forEach(function(block) {
-        block.classList.remove('active');
-    });
+    
+    const blocks = document.querySelectorAll('.block');
+    blocks.forEach(block => block.classList.remove('active'));
 }
 
-// Function to go back to the home page (Dashboard)
+/**
+ * Redirects to the dashboard (home) page
+ */
 function goToDashboard() {
     window.location.href = '/';
 }
 
-// Run layout handler after the page has loaded
-window.onload = function() {
-    handleBlockLayout();  // Call function to arrange the blocks in the layout
-};
+/**
+ * Smoothly scrolls the blockchain container to the right
+ */
+function scrollRight() {
+    document.getElementById('blockchain').scrollBy({
+        left: 300,
+        behavior: 'smooth'
+    });
+}
+
+/**
+ * Smoothly scrolls the blockchain container to the left
+ */
+function scrollLeft() {
+    document.getElementById('blockchain').scrollBy({
+        left: -300,
+        behavior: 'smooth'
+    });
+}

@@ -3,31 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blockchain Visualization</title>
+    <title>Blockchain Encryption Visualization</title>
     <link rel="stylesheet" href="static/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Blockchain Visualization</h1>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-link"></i> Blockchain Encryption Visualization</h1>
+            <p class="subtitle">Secure, Transparent, and Immutable</p>
+        </header>
 
-    <!-- Form to add a new block -->
-    <form action="/add_block" method="POST">
-        <input type="text" name="data" placeholder="Enter data for the new block" required />
-        <input type="submit" value="Add Block" />
-    </form>
+        <div class="main-content">
+            <div class="add-block-section">
+                <h2>Add New Block</h2>
+                <form id="addBlockForm" action="/add_block" method="POST">
+                    <div class="input-group">
+                        <input type="text" 
+                               name="data" 
+                               placeholder="Enter data for the new block" 
+                               required />
+                        <input type="submit" 
+                               value="Add Block" />
+                    </div>
+                </form>
+            </div>
 
-    <!-- Success message -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="success-message">
-          {% for message in messages %}
-            <p>{{ message }}</p>
-          {% endfor %}
+            <div class="info-section">
+                <div class="info-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure</h3>
+                    <p>Each block is cryptographically linked to the previous one</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-history"></i>
+                    <h3>Immutable</h3>
+                    <p>Once added, blocks cannot be modified or deleted</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Transparent</h3>
+                    <p>All transactions are visible and verifiable</p>
+                </div>
+            </div>
+
+            <div class="blockchain-info">
+                <h2>Current Blockchain Status</h2>
+                <div class="status-cards">
+                    <div class="status-card">
+                        <span class="status-label">Total Blocks</span>
+                        <span class="status-value">{{ blockchain|length }}</span>
+                    </div>
+                    <div class="status-card">
+                        <span class="status-label">Last Block Hash</span>
+                        <span class="status-value hash">{{ blockchain[-1].hash[:20] }}...</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      {% endif %}
-    {% endwith %}
 
-    <!-- Button to view the transaction history -->
-    <button class="history" onclick="goToHistory()">Transaction History</button>
+        <!-- Notification popup -->
+        <div id="notification" class="notification">
+            <p id="notification-text"></p>
+        </div>
+
+        <!-- Link to view the transaction history -->
+        <button class="history" onclick="goToHistory()">
+            <i class="fas fa-history"></i> View Transaction History
+        </button>
+    </div>
 
     <script src="static/js/dashboard.js"></script>
 </body>
